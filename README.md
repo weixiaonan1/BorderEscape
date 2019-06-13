@@ -75,7 +75,7 @@ Unfortunately, the macOS version do not support Kinect at present.
 
 ## Report
 
-If you are interested in the implementation details of the project, see [Report](Report for HCI Project.md).
+If you are interested in the implementation details of the project, see [Report](Report.md).
 
 ## Contribution
 

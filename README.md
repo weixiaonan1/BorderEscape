@@ -26,7 +26,7 @@ A 3D Parkour Game based on **Unity 3D** and **Kinect 2.0**.  Different types of 
     - Click the `Exit` button and then quit the game.
     - Make a gesture of `Wave` (Straighten your right/left arm forward, and then wave your right/left arm) before the Kinect camera.
   
-  ![Start](images/start.png)
+  ![Start](Images/start.png)
   
 - **Main Scene**
 

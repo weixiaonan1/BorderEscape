@@ -1,4 +1,4 @@
-<img src="images/run.png" align="right" height="110"/>
+<img src="./Images/run.png" align="right" height="110"/>
 
 # Running Man
 
@@ -14,6 +14,7 @@ A 3D Parkour Game based on **Unity 3D** and **Kinect 2.0**.  Different types of 
 ## Game Logic and Functionality
 
 - **Start Panel**
+  
   - **View information**
     - Click `information` button with a mouse to view the information of the developers of the game. 
     - Or you can attempt to make a gesture of `ZoomIn` (Elbows down, palms at least 0.7 meters apart, and then slowly close palms together) before the Kinect camera, then the information panel is displayed.
@@ -25,7 +26,7 @@ A 3D Parkour Game based on **Unity 3D** and **Kinect 2.0**.  Different types of 
     - Click the `Exit` button and then quit the game.
     - Make a gesture of `Wave` (Straighten your right/left arm forward, and then wave your right/left arm) before the Kinect camera.
   
-  ![image-20190613142452395](assets/image-20190613142452395.png)
+  ![Start](images/start.png)
   
 - **Main Scene**
 
@@ -68,7 +69,7 @@ This game does not need to be installed. Player can download the [released versi
 
 Then fill the game configration, choose the screen resolution, graph quality, and whether windowed. At last, you can click `Play!` to start the game. 
 
-<img src="images/configuration.png" align="center" width="400"/>
+<img src="./Images/configuration.png" align="center" width="400"/>
 
 Unfortunately, the macOS version do not support Kinect at present.
 

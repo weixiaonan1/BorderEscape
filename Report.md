@@ -6,13 +6,24 @@
 
 **Running Man** is a 3D parkour game based on **Unity 3D**. Other than using keyboard and mouse as input devices, the game features using **Kinect** as the motion sensing input device to detect and recognize player's body movement and gesture. The basic fuctionalities and operations are detailed in the [README file](README.md), the following parts will address the structure and the modules of the project.
 
-### The Structure of the Program
+### The Structure and Moduels of the Program
 
+In our 
 
+#### Menu Scene
 
-### The Modules of the Program
+- **View**
+  - **BackGround:** Use a Western wilderness scene as the backgroud.
+  - **Leading Role:** The role that the player controls in the game.
+  - **Start Button:** The button that controls the beginning of the game.
+  - **Instruction Button:** The button that displays the page of the 
+  - **Exit Button:**
+  - **Instruction:**
 
+- **Controller**
+  - 
 
+#### Main Scene
 
 ## The Implemented Requirements
 
@@ -21,6 +32,8 @@
 ### Kinect Control
 
 ### Moving Effect
+
+### Collision Detection
 
 ### Track Generation
 
@@ -48,7 +61,7 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
 4. **Friendly User Interface:**
 
-   The background of this game is verdant lawns, blue sky, and white clouds, which makes players relaxed and delighted. The interface of the game is colorful and bright, which makes it children-friendly.
+   The main scene of this game is set in a city, and the scene mateiral comes from a popular game `People's Unknown Battle Ground (PUBG)`, which can make players feel familiar. And the game avoid any bloody or violent content to make it children-friendly.
 
 5. **Healthy lifestyle:**
 
@@ -62,7 +75,7 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
 2. **Lack of Instruction:**
 
-   In this game, we do not contain any game instruction. Neither is there any keyboard instruction, nor action instruction. Players have to explore the rules of the game, which may result in frustrate enthusiasm.
+   In this game, we contain little game instruction. We only provide players with the basic keyboard operation instructions. Players have to explore the rules of the game, which may result in frustrate enthusiasm.
 
 3. **Inaccurate Identification:**
 
@@ -82,7 +95,7 @@ Since the program is developed in a short time and is not very matural and perfe
 
 1. **Design New Game Modes**
 
-   At present, the game supports only **Endurance Mode** where players run constantly to challenge high scores. We can also design other modes such as **Race Mode** (the shortest time to reach the end), **Prop Mode** (acquire and use powerful props during Parkour), **Escape Mode** (avoid storms or toxins through Parkour), and etc.
+   At present, the game supports only **Endurance Mode** where players run constantly to challenge high scores. We can also design other modes such as **Race Mode** (the shortest time to reach the end), **Prop Mode** (acquire and use powerful props during Parkour), **Escape Mode** (avoid storms or toxins through Parkour), and etc.
 
 2. **Add Game Instructions**
 

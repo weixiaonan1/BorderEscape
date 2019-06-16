@@ -33,7 +33,7 @@ public class PlayerGestureListener : MonoBehaviour, KinectGestures.GestureListen
 
     private bool IsJumpCD = false;
     //squat action lasts 30 frames
-    private int squat_count = 90;
+    public int squat_count = 90;
     //the interval between jump and squat
     private int jump_count = 10;
 

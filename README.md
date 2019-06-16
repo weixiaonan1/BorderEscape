@@ -69,7 +69,7 @@ A 3D Somatosensory Game based on **Unity 3D** and **Kinect 2.0**.  Different typ
 
 ## Installation and Usage
 
-This game does not need to be installed. Player can download the [released version](https://github.com/154544017/RunningMan/releases) (`RunningMan.app` for macOS and `RunningMan.exe` for Windows 10), and launch the game by double click on the executable file.
+This game does not need to be installed. Player can download the [released version](https://github.com/154544017/RunningMan/releases) (`BorderEscape.app` for macOS and `BorderEscape.exe` for Windows 10), and launch the game by double click on the executable file.
 
 Then fill the game configration, choose the screen resolution, graph quality, and whether windowed. At last, you can click `Play!` to start the game. 
 

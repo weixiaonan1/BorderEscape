@@ -4,42 +4,216 @@
 
 ## Introduction
 
-**Running Man** is a 3D parkour game based on **Unity 3D**. Other than using keyboard and mouse as input devices, the game features using **Kinect** as the motion sensing input device to detect and recognize player's body movement and gesture. The basic fuctionalities and operations are detailed in the [README file](README.md), the following parts will address the structure and the modules of the project.
+**Running Man** is a 3D Somatosensory Game based on **Unity 3D**. Other than using keyboard and mouse as input devices, the game features using **Kinect** as the motion sensing input device to detect and recognize player's body movement and gesture. The basic functionalities and operations are detailed in the [README file](README.md), the following parts will address the structure and the modules of the project.
 
-### The Structure and Moduels of the Program
+### The Structure and Modules of the Program
 
-In our 
+In our Unity project, each object is bound with a corresponding controller. 
+
+We adpot the *EmptyGO* structure. We create several empty *GameObject*, and then hang several logic control scripts on them. Find them with *GameObject.Find()*.
 
 #### Menu Scene
 
-- **View**
-  - **BackGround:** Use a Western wilderness scene as the backgroud.
+- **View (Objects)**
+  - **BackGround:** Use a Western wilderness scene as the background.
   - **Leading Role:** The role that the player controls in the game.
   - **Start Button:** The button that controls the beginning of the game.
-  - **Instruction Button:** The button that displays the page of the 
-  - **Exit Button:**
-  - **Instruction:**
+  - **Instruction Button:** The button that displays the page of the instruction.
+  - **Exit Button:** The button that enables the player to quit the game.
+  - **Instruction:** The text displayed on the screen that gives the player the instruction of keyboard.
 
-- **Controller**
-  - 
+- **Controller (Scripts)**
+  - **MenuController:** Set the listeners for the control of the menu through mouse.
+  - **KinectController:** Set the listeners for the control of the menu through Kinect.
 
 #### Main Scene
+
+- **View (Objects)**
+  - **Track:** 
+    - **Ground:** The track of the game (the cement road).
+    - **Environment:** The environment besides the track (the houses, the aircrafts, and the trees, etc.).
+    - **Obstacles:** The obstacles on the track (the boxes and the bridges).
+    - **Props:** The props on the road (the cartridge clips and the medical boxes).
+  - **Role:** The role that the player controls in the game.
+  - **Pause Button:** The button that enables the player to pause the game.
+  - **Restart Button:** The button that enables the player to restart the game.
+  - **Continue Button:** The button that enables the player to continue the game.
+  - **Exit Button:** The button that enables the player to quit the game.
+- **Controller (Scripts)**
+  - **DataTransformer:** Maintain the data transformed among these scripts.
+  - **GameController**: The script file that controls the sequence of the game.
+  - **KinectController:** The script file that detects the player's motions.
+  - **KinectGestures:** The script file that analyses the player's gestures.
+  - **PlayerGestureListener:** The script file that obtains the gestures of the player.
+  - **TrackController:** The script file that controls the movement of the track along with changes the speed.
+  - **PlayerController:** The script file that controls the role through keyboard and Kinect.
+  - **ScoreController:** The script file that controls the score the player gains.
+  - **GamingBGMController:** The script file that controls the BGM of the game.
+  - **Props:** The script file bound to the prop objects.
+  - **Roll:** Generate a new track randomly and destroy the old one.
 
 ## The Implemented Requirements
 
 ### Keyboard Control
 
+Listen to the keyboard input, identify its operation, and make the role perform according actions.
+
+```c#
+// Get keyboard input as "blank space"
+if (useKeyboardInput)
+{
+    if (Input.GetButton("Jump"))
+    {
+        body.velocity = new Vector3(0, jumpForce, 0);
+        GetComponent<AudioSource>().Play();
+    }
+
+    // Get keyboard input as "down arrow key"
+    if (Input.GetAxis("Vertical") < 0)
+    {
+        Squat();
+    }
+    else
+    {
+        RunCollider.isTrigger = true;
+        SquatCollider.isTrigger = false;
+    }
+}
+```
+
 ### Kinect Control
+
+Listen to the Kinect input, identify its operation, and make the role perform according actions.
+
+```c#
+if (useKinectInput)
+{
+    if (gestureListener.IsJump())
+    {
+      body.velocity = new Vector3(0, jumpForce, 0);
+      GetComponent<AudioSource>().Play();
+    }
+    if (gestureListener.IsSquat())
+    {
+      Squat();
+    }
+    else
+    {
+      RunCollider.isTrigger = true;
+      SquatCollider.isTrigger = false;
+    }
+}
+```
 
 ### Moving Effect
 
+The effect of the role moving is generated by the motion of the track as well as the environment, which is defined in `TrackController.cs` and `Roll.cs`. Every pass, the speed of the character multiplies by 1.2 times.
+
+```c#
+private void Update() {
+    transform.position = new Vector3(
+        transform.position.x + trackCtrl.currentSpeed,
+        transform.position.y,
+        transform.position.z
+    );
+	//destroye one completed track
+    if(transform.position.x > length) {
+        Destroy(this.gameObject);
+
+        trackCtrl.RunOver();
+    }
+	//create the first track
+    if(!hasCreated && transform.position.x > 0) {
+        hasCreated = true;
+
+        CreateTrack();
+    }
+}
+```
+
 ### Collision Detection
+
+The character has three forms of motion states: run, jump and squat, each state of motion corresponds to a rigid body form. The Unity has interface to detect collision. Every time the character gets involved into a collision with a rigid body, the system identifie the rigid body. If the rigid body is a obstacle, the game is over.
+
+```c#
+private void OnTriggerEnter(Collider other)
+{
+    //if player hit the obstacle, gameover
+    if (other.CompareTag("Obstacle"))
+    {
+        Death();
+        gameCtrl.Gameover();
+    }
+}
+```
 
 ### Track Generation
 
+We have designed five different tracks. When reaching the half of a track, the game randomly generates a new track and destroys the former track. 
+
+```c#
+//generate infinite random track in track prefabs
+private void CreateTrack() {
+    int index = Random.Range(0, tracks.Length);
+	
+	//ensure current track not to be instantiated again before completing it
+	if(index == trackIndex){
+		index++;
+	}
+	trackIndex = index;
+	
+    float xPos = transform.position.x - length;
+    Vector3 pos = new Vector3(xPos, transform.position.y, transform.position.z);
+    Instantiate(tracks[index], pos, Quaternion.identity);
+}
+```
+
 ### Score System
 
+When the character gets involved into a prop, the game identifies the type of the prop (cartridge clip or medical box). The player gains 2 points when getting a cartridge clip and gains 20 points when getting a medical box.
+
+```c#
+public void AddScore(int scoreValue)
+{
+    score += scoreValue;
+    GetComponent<AudioSource>().Play();
+}
+```
+
 ### Background Music
+
+The BGM of the game speeds up as the game goes on.
+
+```c#
+// Update is called once per frame
+void Update () {
+    if (m_play)
+    {
+        source.Pause();
+    }
+    else {
+        if (!source.isPlaying && !waitForNextClip) {
+            int index = currClipIndex++;
+            if (currClipIndex >= clips.Length)
+                currClipIndex = 0;
+            source.clip = clips[currClipIndex];
+            waitForNextClip = true;
+        }
+        if (waitForNextClip) {
+            waitTime += Time.deltaTime;
+            if (waitTime >= 10.0f)
+            {
+                waitTime = 0.0f;
+                waitForNextClip = false;
+            }
+        }
+        if (waitForNextClip)
+            return;
+        if(!source.isPlaying)
+            source.Play();
+    }
+}
+```
 
 ## Evaluation
 
@@ -53,7 +227,7 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
 2. **Playability:**
 
-   We well-designed the game mode to ensure the game is playful. The game starts relatively easy in the begining to let players become familiar with game operations. Then the rhythm of the game gradually speeds up to increase the difficulty of the game. The trace of the game is randomly generated so that it is not boring or insipid for players to play. What's more, the game track is infinitely long and players has unlimited access to gold coins and treasure chests to consantly challenge high scores.
+   We well-designed the game mode to ensure the game is playful. The game starts relatively easy in the beginning to let players become familiar with game operations. Then the rhythm of the game gradually speeds up to increase the difficulty of the game. The trace of the game is randomly generated so that it is not boring or insipid for players to play. What's more, the game track is infinitely long and players has unlimited access to gold coins and treasure chests to constantly challenge high scores.
 
 3. **Extensibility：**
 
@@ -61,11 +235,11 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
 4. **Friendly User Interface:**
 
-   The main scene of this game is set in a city, and the scene mateiral comes from a popular game `People's Unknown Battle Ground (PUBG)`, which can make players feel familiar. And the game avoid any bloody or violent content to make it children-friendly.
+   The main scene of this game is set in a city, and the scene material comes from a popular game `People's Unknown Battle Ground (PUBG)`, which can make players feel familiar. And the game avoid any bloody or violent content to make it children-friendly.
 
 5. **Healthy lifestyle:**
 
-   Traditionally, vedio games are regarded to be time-consuming, meaningless, and unhealthy for life. However, somatosensory games reverse the situation. As we see, this game gives people opportunity to work out without going outdoors. In addition, this game trains your body's flexibility, enhances responsiveness, strengthens speed, increases amount of exercise and enhances organism resistance.
+   Traditionally, video games are regarded to be time-consuming, meaningless, and unhealthy for life. However, somatosensory games reverse the situation. As we see, this game gives people opportunity to work out without going outdoors. In addition, this game trains your body's flexibility, enhances responsiveness, strengthens speed, increases amount of exercise and enhances organism resistance.
 
 ### Disadvantages
 
@@ -89,9 +263,9 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
    The game currently supports only two game props: gold coins and treasure chests.
 
-## Refinement
+## Further Refinement
 
-Since the program is developed in a short time and is not very matural and perfect enough, some further refinement and improvements are supposed to be taken into consideration, which are listed as follows.
+Since the program is developed in a short time and is not very mature and perfect enough, some further refinement and improvements are supposed to be taken into consideration, which are listed as follows.
 
 1. **Design New Game Modes**
 
@@ -99,7 +273,7 @@ Since the program is developed in a short time and is not very matural and perfe
 
 2. **Add Game Instructions**
 
-   I'm not in favor of the practice of showing players a page detailing the operations of the game, but I suggest that when a player first comes into contact with the game and encounters certain obstacles, the game slows down, and gives guidence to the player on how to overcome the obstacles. After completing these operations in person, the player may quickly get acquainted with the game and grow interest in this game.
+   I'm not in favor of the practice of showing players a page detailing the operations of the game, but I suggest that when a player first comes into contact with the game and encounters certain obstacles, the game slows down, and gives guidance to the player on how to overcome the obstacles. After completing these operations in person, the player may quickly get acquainted with the game and grow interest in this game.
 
 3. **Improve Recognition Accuracy**
 

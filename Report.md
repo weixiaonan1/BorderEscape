@@ -1,16 +1,32 @@
 # Report for HCI Project
 
-[TOC]
+- [Report for HCI Project](#report-for-hci-project)
+  - [Introduction](#introduction)
+    - [The Structure and Modules of the Program](#the-structure-and-modules-of-the-program)
+      - [Menu Scene](#menu-scene)
+      - [Main Scene](#main-scene)
+  - [The Implemented Requirements](#the-implemented-requirements)
+    - [Keyboard Control](#keyboard-control)
+    - [Kinect Control](#kinect-control)
+    - [Moving Effect](#moving-effect)
+    - [Collision Detection](#collision-detection)
+    - [Track Generation](#track-generation)
+    - [Score System](#score-system)
+    - [Background Music](#background-music)
+  - [Evaluation](#evaluation)
+    - [Advantages](#advantages)
+    - [Disadvantages](#disadvantages)
+  - [Further Refinement](#further-refinement)
 
 ## Introduction
 
-**Running Man** is a 3D Somatosensory Game based on **Unity 3D**. Other than using keyboard and mouse as input devices, the game features using **Kinect** as the motion sensing input device to detect and recognize player's body movement and gesture. The basic functionalities and operations are detailed in the [README file](README.md), the following parts will address the structure and the modules of the project.
+**Border Escape** is a 3D Somatosensory Game based on **Unity 3D**. Other than using keyboard and mouse as input devices, the game features using **Kinect** as the motion sensing input device to detect and recognize player's body movement and gesture. The basic functionalities and operations are detailed in the [README file](README.md), the following parts will address the issues of the structure and the modules of the project.
 
 ### The Structure and Modules of the Program
 
-In our Unity project, each object is bound with a corresponding controller. 
+In our Unity project, each object is bound with a corresponding controller.
 
-We adpot the *EmptyGO* structure. We create several empty *GameObject*, and then hang several logic control scripts on them. Find them with *GameObject.Find()*.
+We adopt the *EmptyGO* structure, which means that we create several empty *GameObject*, and then hang several logic control scripts on them. We can find them with *GameObject.Find()* function.
 
 #### Menu Scene
 
@@ -18,9 +34,9 @@ We adpot the *EmptyGO* structure. We create several empty *GameObject*, and th
   - **BackGround:** Use a Western wilderness scene as the background.
   - **Leading Role:** The role that the player controls in the game.
   - **Start Button:** The button that controls the beginning of the game.
-  - **Instruction Button:** The button that displays the page of the instruction.
+  - **Instruction Button:** The button that displays the menu of the instruction.
   - **Exit Button:** The button that enables the player to quit the game.
-  - **Instruction:** The text displayed on the screen that gives the player the instruction of keyboard.
+  - **Instruction Menu:** The menu that contains the text displayed on the screen, which gives the player the instruction of keyboard operation.
 
 - **Controller (Scripts)**
   - **MenuController:** Set the listeners for the control of the menu through mouse.
@@ -29,9 +45,9 @@ We adpot the *EmptyGO* structure. We create several empty *GameObject*, and th
 #### Main Scene
 
 - **View (Objects)**
-  - **Track:** 
+  - **Track:**
     - **Ground:** The track of the game (the cement road).
-    - **Environment:** The environment besides the track (the houses, the aircrafts, and the trees, etc.).
+    - **Environment:** The environment besides the track (the houses, the aircraft, and the trees, etc.).
     - **Obstacles:** The obstacles on the track (the boxes and the bridges).
     - **Props:** The props on the road (the cartridge clips and the medical boxes).
   - **Role:** The role that the player controls in the game.
@@ -40,7 +56,7 @@ We adpot the *EmptyGO* structure. We create several empty *GameObject*, and th
   - **Continue Button:** The button that enables the player to continue the game.
   - **Exit Button:** The button that enables the player to quit the game.
 - **Controller (Scripts)**
-  - **DataTransformer:** Maintain the data transformed among these scripts.
+  - **DataTransformer:** Maintain the data exchanged among these scripts.
   - **GameController**: The script file that controls the sequence of the game.
   - **KinectController:** The script file that detects the player's motions.
   - **KinectGestures:** The script file that analyses the player's gestures.
@@ -53,6 +69,8 @@ We adpot the *EmptyGO* structure. We create several empty *GameObject*, and th
   - **Roll:** Generate a new track randomly and destroy the old one.
 
 ## The Implemented Requirements
+
+In this section, we will introduce the main game logics and how the functionalities are implemented. We will present part of the source code to illustrate the implementation.
 
 ### Keyboard Control
 
@@ -116,7 +134,7 @@ private void Update() {
         transform.position.y,
         transform.position.z
     );
-	//destroye one completed track
+	//destroy one completed track
     if(transform.position.x > length) {
         Destroy(this.gameObject);
 
@@ -133,12 +151,12 @@ private void Update() {
 
 ### Collision Detection
 
-The character has three forms of motion states: run, jump and squat, each state of motion corresponds to a rigid body form. The Unity has interface to detect collision. Every time the character gets involved into a collision with a rigid body, the system identifie the rigid body. If the rigid body is a obstacle, the game is over.
+The character has three forms of motion states: run, jump and squat, each state of motion corresponds to a rigid body form. The Unity has interface to detect collision. Every time the character gets involved into a collision with a rigid body, the system identifies the rigid body. If the rigid body is a obstacle, the game is over.
 
 ```c#
 private void OnTriggerEnter(Collider other)
 {
-    //if player hit the obstacle, gameover
+    //if player hit the obstacle, game over.
     if (other.CompareTag("Obstacle"))
     {
         Death();
@@ -170,7 +188,7 @@ private void CreateTrack() {
 
 ### Score System
 
-When the character gets involved into a prop, the game identifies the type of the prop (cartridge clip or medical box). The player gains 2 points when getting a cartridge clip and gains 20 points when getting a medical box.
+When the character gets involved into collision with a prop, the game identifies the type of the prop (cartridge clip or medical box). The player gains 2 points when getting a cartridge clip and gains 20 points when getting a medical box.
 
 ```c#
 public void AddScore(int scoreValue)
@@ -217,21 +235,21 @@ void Update () {
 
 ## Evaluation
 
-The project is inspired by a popular game *Temple Run*, and we are aimed to improve its interactivity by introducing *Kinect* into our project. By comparison, the projects bears some advantages as well as some disadvantages.
+The project is inspired by a popular game *Temple Run*, and we are aimed to improve its interactivity by introducing *Kinect* into our project. By comparison, the project bears some advantages as well as some disadvantages.
 
 ### Advantages
 
 1. **Interactivity:**
 
-   As stated before, the game supports  two ways of interaction —— traditional keyboard and mouse as well as Kinect. This can largely enhance players' immersion and realism, and provide players with a brand new gaming experience.
+   As stated before, the game supports two ways of interaction —— traditional keyboard and mouse control as well as Kinect control. This can largely enhance players' immersion and realism, and provide players with a brand new gaming experience.
 
 2. **Playability:**
 
-   We well-designed the game mode to ensure the game is playful. The game starts relatively easy in the beginning to let players become familiar with game operations. Then the rhythm of the game gradually speeds up to increase the difficulty of the game. The trace of the game is randomly generated so that it is not boring or insipid for players to play. What's more, the game track is infinitely long and players has unlimited access to gold coins and treasure chests to constantly challenge high scores.
+   We well-designed the game mode to ensure the game is playful. The game starts relatively easy in the beginning to let players become familiar with game operations. Then the pace of the game gradually speeds up to increase the difficulty of the game. The trace of the game is randomly generated so that it is not boring or insipid for players to play. What's more, the game track is infinitely long and players has unlimited access to props to constantly challenge high scores.
 
 3. **Extensibility：**
 
-   We designed friendly and easy-to-use program interfaces. If some developers want to add new features and functionalities, or add some new tracks and checkpoints, it is fairly easy for them to achieve these since there is no need to refactor the code and the program logic.
+   We designed friendly and coherent program interfaces. If some developers want to add new features and functionalities, or just add some new tracks and props, it is fairly easy for them to achieve these since there is no need to refactor the code and the program logic.
 
 4. **Friendly User Interface:**
 
@@ -257,15 +275,15 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
 4. **Lack of Multi-person Interaction:**
 
-   At current stage, this game support single player only. If there are some friends playing together, there should be many PCs and Kinects, and this is an awful situation.
+   At current stage, this game supports single player only. If there are some friends playing together, there should be many PCs and Kinects, and this is an awful situation.
 
 5. **Monotonous Game Scene:**
 
-   The game currently supports only two game props: gold coins and treasure chests.
+   The game currently supports only two game props: cartridge clip and medical box.
 
 ## Further Refinement
 
-Since the program is developed in a short time and is not very mature and perfect enough, some further refinement and improvements are supposed to be taken into consideration, which are listed as follows.
+Since the program is developed in a short time and is not well established and perfect enough, some further refinement and improvements are supposed to be taken into consideration, which are listed as follows.
 
 1. **Design New Game Modes**
 
@@ -277,11 +295,11 @@ Since the program is developed in a short time and is not very mature and perfec
 
 3. **Improve Recognition Accuracy**
 
-   In our practice, the program can only recognize the actions and gestures defined officially by Kinect. In a bid to improve recognition accuracy and avoid action conflicts, we can define some special actions and gestures by detecting the motions of specific joints and bones.
+   In our practice, the program can only recognize the actions and gestures defined officially by Kinect. In a bid to simplify the detection, improve recognition accuracy, and avoid action conflicts, we can define some special actions and gestures by detecting the motions of specific joints and bones.
 
 4. **Design Multiplayer Game Mode**
 
-   Kinect is capable of detecting two or more people's actions though its results may not be very satisfactory. The introduction of Multiplayer Game Mode can enhance the entertainment of the game. 
+   Kinect is capable of detecting two or more people's actions though its results may not be very satisfactory. The introduction of Multiplayer Game Mode can enhance the entertainment of the game.
 
 5. **Refine Game Scene**
 

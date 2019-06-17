@@ -7,7 +7,7 @@
      <a href="http://www.k4w.cn"><img src="https://badgen.net/badge/Kinect/2.0/purple" /></a>
     <a href="https://unity3d.com"><img src="https://badgen.net/badge/platform/windows,xbox%20360,macOS?list=1" /></a>
     <a href="LICENSE"><img src="https://badgen.net/badge/license/Apache%202.0/blue" /></a>
-    <a href="https://github.com/154544017/RunningMan"><img src="https://badgen.net/badge/-/github?icon=github&label" /></a>
+    <a href="https://github.com/154544017/BorderEscape"><img src="https://badgen.net/badge/-/github?icon=github&label" /></a>
 
 A 3D Somatosensory Game based on **Unity 3D** and **Kinect 2.0**.  Different types of input devices are supported to enhance the game experience, including Kinect, Keyboard, and Mouse. (Each contained in a different branch)
 
@@ -69,7 +69,7 @@ A 3D Somatosensory Game based on **Unity 3D** and **Kinect 2.0**.  Different typ
 
 ## Installation and Usage
 
-This game does not need to be installed. Player can download the [released version](https://github.com/154544017/RunningMan/releases) (`BorderEscape.app` for macOS and `BorderEscape.exe` for Windows 10), and launch the game by double click on the executable file.
+This game does not need to be installed. Player can download the [released version](https://github.com/154544017/BorderEscape/releases) (`BorderEscape_macOS.dmg` for macOS and `BorderEscape.rar` for Windows 10), unzip the corresponding file, and launch the game by double click on the executable file.
 
 Then fill the game configration, choose the screen resolution, graph quality, and whether windowed. At last, you can click `Play!` to start the game. 
 
@@ -83,7 +83,7 @@ If you are interested in the implementation details of the project, see [Report]
 
 ## Contribution
 
-See [Contribution](https://github.com/154544017/RunningMan/graphs/contributors).
+See [Contribution](https://github.com/154544017/BorderEscape/graphs/contributors).
 
 ## License
 

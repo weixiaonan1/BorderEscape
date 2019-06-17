@@ -1,22 +1,23 @@
 # Report for HCI Project
 
-- [Report for HCI Project](#report-for-hci-project)
-  - [Introduction](#introduction)
-    - [The Structure and Modules of the Program](#the-structure-and-modules-of-the-program)
-      - [Menu Scene](#menu-scene)
-      - [Main Scene](#main-scene)
-  - [The Implemented Requirements](#the-implemented-requirements)
-    - [Keyboard Control](#keyboard-control)
-    - [Kinect Control](#kinect-control)
-    - [Moving Effect](#moving-effect)
-    - [Collision Detection](#collision-detection)
-    - [Track Generation](#track-generation)
-    - [Score System](#score-system)
-    - [Background Music](#background-music)
-  - [Evaluation](#evaluation)
-    - [Advantages](#advantages)
-    - [Disadvantages](#disadvantages)
-  - [Further Refinement](#further-refinement)
+- [Report for HCI Project](#Report-for-HCI-Project)
+  - [Introduction](#Introduction)
+    - [The Structure and Modules of the Program](#The-Structure-and-Modules-of-the-Program)
+      - [Menu Scene](#Menu-Scene)
+      - [Main Scene](#Main-Scene)
+  - [The Implemented Requirements](#The-Implemented-Requirements)
+    - [Launch Game](#Launch-Game)
+    - [Keyboard Control](#Keyboard-Control)
+    - [Kinect Control](#Kinect-Control)
+    - [Moving Effect](#Moving-Effect)
+    - [Collision Detection](#Collision-Detection)
+    - [Track Generation](#Track-Generation)
+    - [Score System](#Score-System)
+    - [Background Music](#Background-Music)
+  - [Evaluation](#Evaluation)
+    - [Advantages](#Advantages)
+    - [Disadvantages](#Disadvantages)
+  - [Further Refinement](#Further-Refinement)
 
 ## Introduction
 
@@ -39,8 +40,8 @@ We adopt the *EmptyGO* structure, which means that we create several empty *Gam
   - **Instruction Menu:** The menu that contains the text displayed on the screen, which gives the player the instruction of keyboard operation.
 
 - **Controller (Scripts)**
-  - **MenuController:** Set the listeners for the control of the menu through mouse.
-  - **KinectController:** Set the listeners for the control of the menu through Kinect.
+  - **MenuController:** Feedback on the player's input (either from keyboard or *Kinect*)
+  - **KinectController:** Detect player's motion and analyse the gestures of the player.
 
 #### Main Scene
 
@@ -71,6 +72,41 @@ We adopt the *EmptyGO* structure, which means that we create several empty *Gam
 ## The Implemented Requirements
 
 In this section, we will introduce the main game logics and how the functionalities are implemented. We will present part of the source code to illustrate the implementation.
+
+### Launch Game
+
+There are two ways to start the game.
+
+In `MenuController.cs`, by means of judging whether the player enters the game through the action of Run, or clicking the start button, the game stores the mode of the game with a variant `PlayerPrefs` cross two scenes.
+
+```c#
+// Start with keyboard as the input device
+public void StartBtn()
+{
+    //load game scene and use keyboard input;
+    mode = 1;
+    SceneManager.LoadScene("main", LoadSceneMode.Single);
+    PlayerPrefs.SetInt("mode", mode);
+}
+
+// Start with Kinect as the input device
+else if (gestureListener.IsRun())
+{
+    //load game scene and use kincet input;
+    mode = 0;
+    SceneManager.LoadScene("main", LoadSceneMode.Single);
+    PlayerPrefs.SetInt("mode", mode);
+}
+```
+
+In `PlayerController.cs`, the game obtains the `mode` value  and sets the input device.
+
+```c#
+//get mode(user selected) in menu scene and set useKinectInput
+int mode = PlayerPrefs.GetInt("mode");
+useKinectInput = mode == 0 ? true : false;
+gestureListener = PlayerGestureListener.Instance;
+```
 
 ### Keyboard Control
 
@@ -281,6 +317,8 @@ The project is inspired by a popular game *Temple Run*, and we are aimed to impr
 
    The game currently supports only two game props: cartridge clip and medical box.
 
+   In addition, in the current game, the score does not appear so important and appealing. Once the player fails, the score returns to zero.
+
 ## Further Refinement
 
 Since the program is developed in a short time and is not well established and perfect enough, some further refinement and improvements are supposed to be taken into consideration, which are listed as follows.
@@ -304,3 +342,5 @@ Since the program is developed in a short time and is not well established and p
 5. **Refine Game Scene**
 
    The current game scene is monotonous. We can refresh the game scene by adding more various style scenes (such as the rain, the sunset, the fog, etc.), constantly changing the back ground color and the styles of tracks and obstacles to make the gaming process more dynamic and delightful.
+
+   We can also add some functional props such as protective shield, one more life, and score doubling props. This can make the game more playable.

@@ -18,12 +18,12 @@ A 3D Somatosensory Game based on **Unity 3D** and **Kinect 2.0**.  Different typ
 - **Start Panel**
   
   - **View information**
-    - Click `information` button with a mouse to view the information of the developers of the game. 
+    - Click `information` button with a mouse to view the information of the developers of the game.
     - Or you can attempt to make a gesture of `ZoomIn` (Elbows down, palms at least 0.7 meters apart, and then slowly close palms together) before the *Kinect* camera, then the information panel is displayed.
     - If you want to return to the main page, then either try to click the `close` button, or to make a gesture of `ZoomOut` (Elbows down, fold both palms together, and then slowly separate them) before the *Kinect* camera.
   - **Two ways to launch the game:**
     - Move your mouse and click the `start` button to start the game with keyboard as the input device.
-    - Run in the spot before the *Kinect* camera, once the *Kinect* identifies your actions, the game starts with *Kinect* as the input device.
+    - In the lower right corner of the interface, if a *Kinect* is linked to the computer, then there will appear a Character Texture Map, which displays the player's action. Run in the spot before the *Kinect* camera, once the *Kinect* identifies your actions, the game starts with *Kinect* as the input device.
   - **Quit the game:**
     - Click the `Exit` button and then quit the game.
     - Make a gesture of `Wave` (Straighten your right/left arm forward, and then wave your right/left arm) before the *Kinect* camera.

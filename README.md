@@ -1,4 +1,4 @@
- <img src="./Images/run.png" align="right" height="110"/>
+ <img src="./Images/run.png" align="right" height="110"/>
 
 # Endless Runner: Border Escape
 
@@ -69,9 +69,11 @@ A 3D Somatosensory Game based on **Unity 3D** and **Kinect 2.0**.  Different typ
 
 ## Installation and Usage
 
-This game does not need to be installed. Player can download the [released version](https://github.com/154544017/BorderEscape/releases) (`BorderEscape_macOS.dmg` for macOS and `BorderEscape.rar` for Windows 10), unzip the corresponding file, and launch the game by double click on the executable file.
+This game does not need to be installed. Player can download the [released version](https://github.com/154544017/BorderEscape/releases) (`BorderEscape_macOS.dmg` for macOS and `BorderEscape_win_64bits.rar` for Windows 10), unzip the corresponding file, and launch the game by double click on the executable file.
 
 Then fill the game configuration, choose the screen resolution, graph quality, and whether windowed. At last, you can click `Play!` to start the game.
+
+It is suggested to set the Sreen resolution to `1650 x 1050` or `2048 x 1280`.
 
 <img src="./Images/configuration.png" align="center" width="400"/>
 
